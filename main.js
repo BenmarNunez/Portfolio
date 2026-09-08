@@ -1,102 +1,110 @@
-// nav toggle/active-state, scroll-reveal, form validation — added in later tasks
+// nav toggle/active-state, scroll-reveal, form validation
+(function initMain() {
+  const navToggle = document.getElementById('nav-toggle');
+  const navMenu = document.getElementById('nav-menu');
 
-const navToggle = document.getElementById('nav-toggle');
-const navMenu = document.getElementById('nav-menu');
+  if (navToggle && navMenu) {
+    navToggle.addEventListener('click', () => {
+      const isOpen = navMenu.classList.toggle('open');
+      navToggle.setAttribute('aria-expanded', String(isOpen));
+    });
 
-if (navToggle && navMenu) {
-  navToggle.addEventListener('click', () => {
-    const isOpen = navMenu.classList.toggle('open');
-    navToggle.setAttribute('aria-expanded', String(isOpen));
-  });
-}
+    navMenu.addEventListener('click', (e) => {
+      if (e.target.classList.contains('nav-link')) {
+        navMenu.classList.remove('open');
+        navToggle.setAttribute('aria-expanded', 'false');
+      }
+    });
+  }
 
-function isValidEmail(value) {
-  return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value);
-}
+  function isValidEmail(value) {
+    return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value);
+  }
 
-function validateContactForm(form) {
-  const errors = {};
-  const name = form.elements['name'].value.trim();
-  const email = form.elements['email'].value.trim();
-  const message = form.elements['message'].value.trim();
+  function validateContactForm(form) {
+    const errors = {};
+    const name = form.elements['name'].value.trim();
+    const email = form.elements['email'].value.trim();
+    const message = form.elements['message'].value.trim();
 
-  if (!name) errors.name = 'Name is required.';
-  if (!email) errors.email = 'Email is required.';
-  else if (!isValidEmail(email)) errors.email = 'Enter a valid email address.';
-  if (!message) errors.message = 'Message is required.';
+    if (!name) errors.name = 'Name is required.';
+    if (!email) errors.email = 'Email is required.';
+    else if (!isValidEmail(email)) errors.email = 'Enter a valid email address.';
+    if (!message) errors.message = 'Message is required.';
 
-  return errors;
-}
+    return errors;
+  }
 
-function showFormErrors(errors) {
-  ['name', 'email', 'message'].forEach((field) => {
-    const el = document.getElementById(`${field}-error`);
-    el.textContent = errors[field] || '';
-    contactForm.elements[field].setAttribute('aria-invalid', String(Boolean(errors[field])));
-  });
-}
+  function showFormErrors(form, errors) {
+    ['name', 'email', 'message'].forEach((field) => {
+      const el = document.getElementById(`${field}-error`);
+      el.textContent = errors[field] || '';
+      form.elements[field].setAttribute('aria-invalid', String(Boolean(errors[field])));
+    });
+  }
 
-const contactForm = document.getElementById('contact-form');
-const formStatus = document.getElementById('form-status');
+  const contactForm = document.getElementById('contact-form');
+  const formStatus = document.getElementById('form-status');
 
-if (contactForm && formStatus) {
-  contactForm.addEventListener('submit', async (e) => {
-    e.preventDefault();
-    const errors = validateContactForm(contactForm);
-    showFormErrors(errors);
-    const firstInvalidField = ['name', 'email', 'message'].find((field) => errors[field]);
-    if (firstInvalidField) {
-      contactForm.elements[firstInvalidField].focus();
-      return;
-    }
+  if (contactForm && formStatus) {
+    contactForm.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const errors = validateContactForm(contactForm);
+      showFormErrors(contactForm, errors);
+      const firstInvalidField = ['name', 'email', 'message'].find((field) => errors[field]);
+      if (firstInvalidField) {
+        contactForm.elements[firstInvalidField].focus();
+        return;
+      }
 
-    formStatus.textContent = 'Sending...';
-    formStatus.className = '';
+      formStatus.textContent = 'Sending...';
+      formStatus.className = '';
 
-    try {
-      const response = await fetch(contactForm.action, {
-        method: 'POST',
-        body: new FormData(contactForm),
-        headers: { Accept: 'application/json' },
-      });
-      if (response.ok) {
-        formStatus.textContent = 'Message sent — thanks! I\'ll get back to you soon.';
-        formStatus.className = 'success';
-        contactForm.reset();
-      } else {
-        formStatus.textContent = 'Something went wrong. Please email me directly instead.';
+      try {
+        const response = await fetch(contactForm.action, {
+          method: 'POST',
+          body: new FormData(contactForm),
+          headers: { Accept: 'application/json' },
+        });
+        if (response.ok) {
+          formStatus.textContent = 'Message sent — thanks! I\'ll get back to you soon.';
+          formStatus.className = 'success';
+          contactForm.reset();
+        } else {
+          formStatus.textContent = 'Something went wrong. Please email me directly instead.';
+          formStatus.className = 'error';
+        }
+      } catch (err) {
+        formStatus.textContent = 'Network error. Please email me directly instead.';
         formStatus.className = 'error';
       }
-    } catch (err) {
-      formStatus.textContent = 'Network error. Please email me directly instead.';
-      formStatus.className = 'error';
-    }
-  });
-}
-
-const revealElements = document.querySelectorAll('.reveal');
-if ('IntersectionObserver' in window) {
-  const revealObserver = new IntersectionObserver((entries) => {
-    entries.forEach((entry) => {
-      if (entry.isIntersecting) entry.target.classList.add('visible');
     });
-  }, { threshold: 0.15 });
-  revealElements.forEach((el) => revealObserver.observe(el));
+  }
 
-  const navLinks = document.querySelectorAll('.nav-link');
-  const sections = document.querySelectorAll('main > section[id]');
-  const navObserver = new IntersectionObserver((entries) => {
-    entries.forEach((entry) => {
-      if (entry.isIntersecting) {
-        navLinks.forEach((link) => link.classList.remove('active'));
-        const activeLink = document.querySelector(`.nav-link[data-section="${entry.target.id}"]`);
-        if (activeLink) activeLink.classList.add('active');
-      }
-    });
-  }, { threshold: 0.5 });
-  sections.forEach((section) => navObserver.observe(section));
-} else {
-  // No IntersectionObserver support: skip the reveal animation and nav
-  // highlighting entirely rather than leaving content permanently hidden.
-  revealElements.forEach((el) => el.classList.add('visible'));
-}
+  const revealElements = document.querySelectorAll('.reveal');
+  if ('IntersectionObserver' in window) {
+    const revealObserver = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) entry.target.classList.add('visible');
+      });
+    }, { threshold: 0.15 });
+    revealElements.forEach((el) => revealObserver.observe(el));
+
+    const navLinks = document.querySelectorAll('.nav-link');
+    const sections = document.querySelectorAll('main > section[id]');
+    const navObserver = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          navLinks.forEach((link) => link.classList.remove('active'));
+          const activeLink = document.querySelector(`.nav-link[data-section="${entry.target.id}"]`);
+          if (activeLink) activeLink.classList.add('active');
+        }
+      });
+    }, { threshold: 0.5 });
+    sections.forEach((section) => navObserver.observe(section));
+  } else {
+    // No IntersectionObserver support: skip the reveal animation and nav
+    // highlighting entirely rather than leaving content permanently hidden.
+    revealElements.forEach((el) => el.classList.add('visible'));
+  }
+})();

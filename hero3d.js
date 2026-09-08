@@ -53,6 +53,16 @@
     const ROTATION_SPEED_Y = 0.003;
     const ROTATION_SPEED_X = 0.001;
 
+    const prefersReducedMotion = Boolean(
+      window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches
+    );
+
+    if (prefersReducedMotion) {
+      camera.lookAt(scene.position);
+      renderer.render(scene, camera);
+      return;
+    }
+
     let targetX = 0, targetY = 0;
     window.addEventListener('mousemove', (e) => {
       targetX = (e.clientX / window.innerWidth - 0.5) * PARALLAX_SENSITIVITY;
