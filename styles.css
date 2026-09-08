@@ -1,0 +1,21 @@
+:root {
+  --bg: #0a0a0f;
+  --text: #e5e5e5;
+  --text-dim: #9ca3af;
+  --accent: #22d3ee;
+  --accent-dim: rgba(34, 211, 238, 0.35);
+  --card-bg: #111827;
+  --font-sans: 'Inter', system-ui, sans-serif;
+  --font-mono: 'JetBrains Mono', 'Courier New', monospace;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--font-sans);
+  line-height: 1.5;
+}
