@@ -116,6 +116,36 @@
     </div>
   </div>
 </section>
+<section id="contact" class="section reveal">
+  <p class="subtitle">Get In Touch</p>
+  <h2>Contact</h2>
+  <div class="contact-layout">
+    <form id="contact-form" action="https://formspree.io/f/YOUR_FORM_ID" method="POST" novalidate>
+      <div class="field">
+        <label for="name">Name</label>
+        <input type="text" id="name" name="name">
+        <span class="field-error" id="name-error"></span>
+      </div>
+      <div class="field">
+        <label for="email">Email</label>
+        <input type="text" id="email" name="email">
+        <span class="field-error" id="email-error"></span>
+      </div>
+      <div class="field">
+        <label for="message">Message</label>
+        <textarea id="message" name="message" rows="5"></textarea>
+        <span class="field-error" id="message-error"></span>
+      </div>
+      <button type="submit" class="btn-primary">Send Message</button>
+      <p id="form-status" role="status"></p>
+    </form>
+    <div class="contact-direct">
+      <a href="mailto:jane@example.com" class="project-link">jane@example.com</a>
+      <a href="https://github.com/yourhandle" class="project-link" target="_blank" rel="noopener">GitHub</a>
+      <a href="https://linkedin.com/in/yourhandle" class="project-link" target="_blank" rel="noopener">LinkedIn</a>
+    </div>
+  </div>
+</section>
 </main>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
