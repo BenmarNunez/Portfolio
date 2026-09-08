@@ -7,6 +7,7 @@
   --card-bg: #111827;
   --font-sans: 'Inter', system-ui, sans-serif;
   --font-mono: 'JetBrains Mono', 'Courier New', monospace;
+  --nav-height: 65px;
 }
 
 * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -115,10 +116,10 @@ h2 {
 
 #hero {
   position: relative;
-  min-height: calc(100vh - 65px);
+  min-height: calc(100vh - var(--nav-height));
   display: flex;
   align-items: center;
-  padding: 2rem 1.5rem;
+  padding: 2rem 3rem;
   overflow: hidden;
 }
 
@@ -134,9 +135,8 @@ h2 {
 .hero-text {
   position: relative;
   z-index: 1;
-  max-width: 600px;
-  margin: 0 auto;
-  text-align: center;
+  max-width: min(560px, calc(50% - 3rem));
+  text-align: left;
 }
 
 .hero-text h1 {
@@ -167,5 +167,7 @@ h2 {
 }
 
 @media (max-width: 640px) {
+  #hero { padding: 2rem 1.5rem; }
   #hero-canvas { width: 100%; opacity: 0.4; }
+  .hero-text { max-width: 100%; }
 }
