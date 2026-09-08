@@ -8,7 +8,7 @@
 <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=JetBrains+Mono:wght@400;600&family=Fraunces:wght@600;900&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="styles.css">
 </head>
 <body>
@@ -20,83 +20,121 @@
     <div id="nav-menu">
       <a href="#hero" class="nav-link" data-section="hero">Home</a>
       <a href="#projects" class="nav-link" data-section="projects">Projects</a>
+      <a href="#skills" class="nav-link" data-section="skills">Skills</a>
       <a href="#about" class="nav-link" data-section="about">About</a>
-      <a href="#contact" class="nav-link" data-section="contact">Contact</a>
+      <a href="#contact" class="nav-pill" data-section="contact">Contact</a>
     </div>
   </div>
 </nav>
 <main>
 <section id="hero" class="reveal">
-  <canvas id="hero-canvas"></canvas>
-  <div class="hero-photo">
-    <img src="assets/benmar-nunez.jpg" alt="Portrait of Benmar Nuñez" width="480" height="720">
-  </div>
-  <div class="hero-text">
-    <p class="subtitle">Web Developer &amp; Multimedia Creator</p>
-    <h1>Benmar Nuñez</h1>
-    <p class="hero-tagline">I build full-stack web systems and craft video, 3D, and AI-assisted multimedia content — from on-site production to shipped code.</p>
-    <div class="hero-actions">
-      <a href="#projects" class="btn-primary">View Work</a>
-      <a href="assets/BenmarNunez_CV.pdf" class="btn-secondary" download>Download CV</a>
-    </div>
+  <p class="subtitle">Web Developer &amp; Multimedia Creator</p>
+  <h1 class="hero-headline">Where Code<br><span class="accent-text">Meets Creativity</span></h1>
+  <p class="hero-tagline">I build full-stack web systems and craft video, 3D, and AI-assisted multimedia content — from on-site production to shipped code.</p>
+  <div class="hero-actions">
+    <a href="#projects" class="btn-primary">View Work</a>
+    <a href="assets/BenmarNunez_CV.pdf" class="btn-secondary" download>Download CV</a>
   </div>
 </section>
+
 <section id="projects" class="section reveal">
   <p class="subtitle">Selected Work</p>
-  <h2>Projects</h2>
+  <h2>Latest <span class="accent-text">Projects</span></h2>
   <div class="project-grid">
 
     <article class="project-card">
-      <h3>J&amp;A Fitness AI</h3>
-      <p>AI-powered personal fitness trainer — personalized workout plans, real-time posture correction and rep counting via camera, and an AI nutritionist using Gemini Vision for macro scanning. Built for J&amp;A Fitness, Legazpi City.</p>
-      <div class="tags"><span class="tag">React</span><span class="tag">Django</span><span class="tag">Computer Vision</span></div>
-      <div class="project-links">
-        <a href="https://ja-fitness-ai.vercel.app" class="project-link" target="_blank" rel="noopener">Live<span class="sr-only"> — J&amp;A Fitness AI</span></a>
-        <a href="https://github.com/BenmarNunez/J-A-Fitness-AI" class="project-link" target="_blank" rel="noopener">Repo<span class="sr-only"> — J&amp;A Fitness AI</span></a>
+      <div class="project-thumb"><img src="assets/screens/ja-fitness-ai.jpg" alt="J&amp;A Fitness AI landing page" loading="lazy" width="900" height="632"></div>
+      <div class="project-body">
+        <h3>J&amp;A Fitness AI</h3>
+        <p>AI-powered personal fitness trainer — personalized workout plans, real-time posture correction and rep counting via camera, and an AI nutritionist using Gemini Vision for macro scanning.</p>
+        <div class="tags"><span class="tag">React</span><span class="tag">Django</span><span class="tag">Computer Vision</span></div>
+        <div class="project-links">
+          <a href="https://ja-fitness-ai.vercel.app" class="project-link" target="_blank" rel="noopener">Live<span class="sr-only"> — J&amp;A Fitness AI</span></a>
+          <a href="https://github.com/BenmarNunez/J-A-Fitness-AI" class="project-link" target="_blank" rel="noopener">Repo<span class="sr-only"> — J&amp;A Fitness AI</span></a>
+        </div>
       </div>
     </article>
 
     <article class="project-card">
-      <h3>LET Reviewer &amp; Mock Exam</h3>
-      <p>Exam-prep platform for the Licensure Examination for Teachers — timed mock exams, per-question explanations, and progress tracking to help reviewees pass.</p>
-      <div class="tags"><span class="tag">Full-Stack</span><span class="tag">Exam Engine</span></div>
-      <div class="project-links">
-        <a href="https://let-reviewer-mock-exam-system.vercel.app" class="project-link" target="_blank" rel="noopener">Live<span class="sr-only"> — LET Reviewer &amp; Mock Exam</span></a>
+      <div class="project-thumb"><img src="assets/screens/let-reviewer.jpg" alt="LET Reviewer and Mock Exam landing page" loading="lazy" width="900" height="435"></div>
+      <div class="project-body">
+        <h3>LET Reviewer &amp; Mock Exam</h3>
+        <p>Exam-prep platform for the Licensure Examination for Teachers — timed mock exams, per-question explanations, and progress tracking to help reviewees pass.</p>
+        <div class="tags"><span class="tag">Full-Stack</span><span class="tag">Exam Engine</span></div>
+        <div class="project-links">
+          <a href="https://let-reviewer-mock-exam-system.vercel.app" class="project-link" target="_blank" rel="noopener">Live<span class="sr-only"> — LET Reviewer &amp; Mock Exam</span></a>
+        </div>
       </div>
     </article>
 
     <article class="project-card">
-      <h3>CAT College Enrollment System</h3>
-      <p>Role-based enrollment system for CAT College — Admin, Registrar, Cashier, and Student portals, plus an online admission application flow for new students.</p>
-      <div class="tags"><span class="tag">Full-Stack</span><span class="tag">Role-Based Access</span></div>
-      <div class="project-links">
-        <a href="https://catcollegesystem.vercel.app" class="project-link" target="_blank" rel="noopener">Live<span class="sr-only"> — CAT College Enrollment System</span></a>
+      <div class="project-thumb"><img src="assets/screens/catcollegesystem.jpg" alt="CAT College Enrollment System sign-in page" loading="lazy" width="900" height="632"></div>
+      <div class="project-body">
+        <h3>CAT College Enrollment System</h3>
+        <p>Role-based enrollment system for CAT College — Admin, Registrar, Cashier, and Student portals, plus an online admission application flow for new students.</p>
+        <div class="tags"><span class="tag">Full-Stack</span><span class="tag">Role-Based Access</span></div>
+        <div class="project-links">
+          <a href="https://catcollegesystem.vercel.app" class="project-link" target="_blank" rel="noopener">Live<span class="sr-only"> — CAT College Enrollment System</span></a>
+        </div>
       </div>
     </article>
 
     <article class="project-card">
-      <h3>Asia Pacific School Information System</h3>
-      <p>School Management Information System built for Asia Pacific International College — centralizing student records and administrative workflows.</p>
-      <div class="tags"><span class="tag">Full-Stack</span><span class="tag">SIS</span></div>
-      <div class="project-links">
-        <a href="https://apic-sis.vercel.app" class="project-link" target="_blank" rel="noopener">Live<span class="sr-only"> — Asia Pacific School Information System</span></a>
+      <div class="project-thumb"><img src="assets/screens/apic-sis.jpg" alt="Asia Pacific School Information System sign-in page" loading="lazy" width="900" height="632"></div>
+      <div class="project-body">
+        <h3>Asia Pacific School Information System</h3>
+        <p>School Management Information System built for Asia Pacific International College — centralizing student records and administrative workflows.</p>
+        <div class="tags"><span class="tag">Full-Stack</span><span class="tag">SIS</span></div>
+        <div class="project-links">
+          <a href="https://apic-sis.vercel.app" class="project-link" target="_blank" rel="noopener">Live<span class="sr-only"> — Asia Pacific School Information System</span></a>
+        </div>
       </div>
     </article>
 
-    <article class="project-card">
-      <h3>Purly Remote LLC — Corporate Website</h3>
-      <p>Marketing website for a remote staffing and freelancing solutions provider — freelancer application flow, client hiring requests, and a freelancer portfolio directory.</p>
-      <div class="tags"><span class="tag">Next.js</span><span class="tag">TypeScript</span><span class="tag">Supabase</span></div>
-      <div class="project-links">
-        <a href="https://github.com/BenmarNunez/Purlyremote_website" class="project-link" target="_blank" rel="noopener">Repo<span class="sr-only"> — Purly Remote LLC Corporate Website</span></a>
+    <article class="project-card project-card-text">
+      <div class="project-body">
+        <h3>Purly Remote LLC — Corporate Website</h3>
+        <p>Marketing website for a remote staffing and freelancing solutions provider — freelancer application flow, client hiring requests, and a freelancer portfolio directory.</p>
+        <div class="tags"><span class="tag">Next.js</span><span class="tag">TypeScript</span><span class="tag">Supabase</span></div>
+        <div class="project-links">
+          <a href="https://github.com/BenmarNunez/Purlyremote_website" class="project-link" target="_blank" rel="noopener">Repo<span class="sr-only"> — Purly Remote LLC Corporate Website</span></a>
+        </div>
       </div>
     </article>
 
   </div>
 </section>
+
+<section id="skills" class="section reveal">
+  <p class="subtitle">What I Bring</p>
+  <h2>Where I Can <span class="accent-text">Help</span></h2>
+  <div class="skills-grid">
+    <div class="skill-card">
+      <h3>Web Development</h3>
+      <p>Full-stack systems, from role-based platforms to AI-powered apps.</p>
+      <div class="tags"><span class="tag">JavaScript / React</span><span class="tag">Python / Django</span><span class="tag">TypeScript / Next.js</span><span class="tag">PHP / Laravel</span></div>
+    </div>
+    <div class="skill-card">
+      <h3>3D Visualization</h3>
+      <p>Real-world 3D renders and walkthroughs for presentation and planning.</p>
+      <div class="tags"><span class="tag">SketchUp</span><span class="tag">Lumion</span><span class="tag">Golf Course Visualization</span></div>
+    </div>
+    <div class="skill-card">
+      <h3>Video Editing &amp; Post-Production</h3>
+      <p>AI-assisted editing workflows for corporate and international production.</p>
+      <div class="tags"><span class="tag">AI-Assisted Editing</span><span class="tag">Auto-Captioning</span><span class="tag">Scene Enhancement</span></div>
+    </div>
+    <div class="skill-card">
+      <h3>Graphic Design</h3>
+      <p>Marketing and branding materials for digital platforms.</p>
+      <div class="tags"><span class="tag">Visual Branding</span><span class="tag">Marketing Materials</span></div>
+    </div>
+  </div>
+</section>
+
 <section id="about" class="section reveal">
   <p class="subtitle">About</p>
-  <h2>Who I Am</h2>
+  <h2>Who I <span class="accent-text">Am</span></h2>
   <div class="about-content">
     <p>I'm an IT graduate based in Sorsogon, Philippines, with a background that spans video editing, 3D visualization, and full-stack web development. I've produced 3D golf course visualizations with SketchUp and Lumion, handled on-site video production, and built AI-assisted editing workflows for corporate and international clients — while growing a parallel foundation in web-based system development, from role-based enrollment platforms to AI-powered fitness apps. I'm adaptable, detail-oriented, and comfortable moving between creative and technical work.</p>
     <div class="tags skills-tags">
@@ -111,11 +149,59 @@
       <span class="tag">TypeScript / Next.js</span>
       <span class="tag">PHP / Laravel</span>
     </div>
+
+    <h3 class="about-subhead">Experience</h3>
+    <ul class="experience-list">
+      <li>
+        <div class="experience-role">
+          <span class="experience-title">Video Editor</span>
+          <span class="experience-period">Post-graduation</span>
+        </div>
+        <div class="experience-org">Airflix Company &amp; Maxwell Achieves</div>
+        <p>Edited digital video content for online and media platforms, using AI-powered tools for enhancement, auto-captioning, and workflow automation in a multicultural, international production environment.</p>
+      </li>
+      <li>
+        <div class="experience-role">
+          <span class="experience-title">Video Editor &amp; Graphic Designer (Part-Time)</span>
+          <span class="experience-period">1st – 2nd Year</span>
+        </div>
+        <div class="experience-org">ADC Company</div>
+        <p>Produced promotional and corporate video content, designed marketing materials, and created 3D golf course visualizations and walkthroughs using SketchUp and Lumion, integrating on-site footage with 3D visuals.</p>
+      </li>
+    </ul>
   </div>
 </section>
+
+<section id="faq" class="section reveal">
+  <p class="subtitle">Questions</p>
+  <h2>Frequently <span class="accent-text">Asked</span></h2>
+  <div class="faq-list">
+    <details class="faq-item">
+      <summary>What kind of projects do you take on?</summary>
+      <p>Full-stack web development, 3D visualization, video editing, and AI-assisted multimedia work — solo or as part of a small team.</p>
+    </details>
+    <details class="faq-item">
+      <summary>What's your typical process?</summary>
+      <p>We start with a quick discussion about your goals, then I scope the approach and keep you updated as the build progresses.</p>
+    </details>
+    <details class="faq-item">
+      <summary>What technologies do you work with?</summary>
+      <p>React, Django, Next.js, and Laravel on the development side; SketchUp and Lumion for 3D visualization; AI-assisted tools for video editing.</p>
+    </details>
+    <details class="faq-item">
+      <summary>Are you available for freelance work?</summary>
+      <p>Yes — reach out through the contact form or email below and I'll get back to you.</p>
+    </details>
+    <details class="faq-item">
+      <summary>Do you work with international clients?</summary>
+      <p>Yes, I've worked in both local corporate and international production environments.</p>
+    </details>
+  </div>
+</section>
+
 <section id="contact" class="section reveal">
   <p class="subtitle">Get In Touch</p>
-  <h2>Contact</h2>
+  <h2>Let's <span class="accent-text">Build</span> Together</h2>
   <div class="contact-layout">
     <form id="contact-form" action="https://formspree.io/f/mkjnpqqw" method="POST" novalidate>
       <div class="field">
@@ -145,11 +231,17 @@
 </section>
 </main>
 <footer>
-  <p>&copy; 2026 Benmar Nuñez. Built with vanilla JS and Three.js.</p>
+  <div class="footer-top">
+    <p>Let's build something great together.</p>
+    <div class="footer-links">
+      <a href="mailto:nunezbenmar@gmail.com" class="project-link">nunezbenmar@gmail.com</a>
+      <a href="https://github.com/BenmarNunez" class="project-link" target="_blank" rel="noopener">GitHub</a>
+    </div>
+  </div>
+  <div class="footer-wordmark" aria-hidden="true">BENMAR NUÑEZ</div>
+  <p class="footer-copy">&copy; 2026 Benmar Nuñez. Built with vanilla JS.</p>
 </footer>
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
-<script src="hero3d.js"></script>
 <script src="main.js"></script>
 </body>
 </html>
