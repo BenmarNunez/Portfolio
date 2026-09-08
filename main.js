@@ -75,22 +75,28 @@ if (contactForm && formStatus) {
 }
 
 const revealElements = document.querySelectorAll('.reveal');
-const revealObserver = new IntersectionObserver((entries) => {
-  entries.forEach((entry) => {
-    if (entry.isIntersecting) entry.target.classList.add('visible');
-  });
-}, { threshold: 0.15 });
-revealElements.forEach((el) => revealObserver.observe(el));
+if ('IntersectionObserver' in window) {
+  const revealObserver = new IntersectionObserver((entries) => {
+    entries.forEach((entry) => {
+      if (entry.isIntersecting) entry.target.classList.add('visible');
+    });
+  }, { threshold: 0.15 });
+  revealElements.forEach((el) => revealObserver.observe(el));
 
-const navLinks = document.querySelectorAll('.nav-link');
-const sections = document.querySelectorAll('main > section[id]');
-const navObserver = new IntersectionObserver((entries) => {
-  entries.forEach((entry) => {
-    if (entry.isIntersecting) {
-      navLinks.forEach((link) => link.classList.remove('active'));
-      const activeLink = document.querySelector(`.nav-link[data-section="${entry.target.id}"]`);
-      if (activeLink) activeLink.classList.add('active');
-    }
-  });
-}, { threshold: 0.5 });
-sections.forEach((section) => navObserver.observe(section));
+  const navLinks = document.querySelectorAll('.nav-link');
+  const sections = document.querySelectorAll('main > section[id]');
+  const navObserver = new IntersectionObserver((entries) => {
+    entries.forEach((entry) => {
+      if (entry.isIntersecting) {
+        navLinks.forEach((link) => link.classList.remove('active'));
+        const activeLink = document.querySelector(`.nav-link[data-section="${entry.target.id}"]`);
+        if (activeLink) activeLink.classList.add('active');
+      }
+    });
+  }, { threshold: 0.5 });
+  sections.forEach((section) => navObserver.observe(section));
+} else {
+  // No IntersectionObserver support: skip the reveal animation and nav
+  // highlighting entirely rather than leaving content permanently hidden.
+  revealElements.forEach((el) => el.classList.add('visible'));
+}
