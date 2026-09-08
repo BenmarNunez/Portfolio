@@ -32,6 +32,7 @@ function showFormErrors(errors) {
   ['name', 'email', 'message'].forEach((field) => {
     const el = document.getElementById(`${field}-error`);
     el.textContent = errors[field] || '';
+    contactForm.elements[field].setAttribute('aria-invalid', String(Boolean(errors[field])));
   });
 }
 
@@ -43,7 +44,11 @@ if (contactForm && formStatus) {
     e.preventDefault();
     const errors = validateContactForm(contactForm);
     showFormErrors(errors);
-    if (Object.keys(errors).length > 0) return;
+    const firstInvalidField = ['name', 'email', 'message'].find((field) => errors[field]);
+    if (firstInvalidField) {
+      contactForm.elements[firstInvalidField].focus();
+      return;
+    }
 
     formStatus.textContent = 'Sending...';
     formStatus.className = '';
