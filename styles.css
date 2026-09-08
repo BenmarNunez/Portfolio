@@ -232,3 +232,11 @@ h2 {
 @media (max-width: 640px) {
   .project-grid { grid-template-columns: 1fr; }
 }
+
+.about-content p {
+  max-width: 700px;
+  color: var(--text-dim);
+  margin: 1.5rem 0;
+}
+
+.skills-tags { gap: 0.6rem; }
