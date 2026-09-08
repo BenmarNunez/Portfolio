@@ -48,23 +48,34 @@
     window.addEventListener('resize', resize);
     resize();
 
+    const PARALLAX_SENSITIVITY = 0.6;
+    const PARALLAX_DAMPING = 0.03;
+    const ROTATION_SPEED_Y = 0.003;
+    const ROTATION_SPEED_X = 0.001;
+
     let targetX = 0, targetY = 0;
     window.addEventListener('mousemove', (e) => {
-      targetX = (e.clientX / window.innerWidth - 0.5) * 0.6;
-      targetY = (e.clientY / window.innerHeight - 0.5) * 0.6;
+      targetX = (e.clientX / window.innerWidth - 0.5) * PARALLAX_SENSITIVITY;
+      targetY = (e.clientY / window.innerHeight - 0.5) * PARALLAX_SENSITIVITY;
     });
 
     function animate() {
+      try {
+        solidMesh.rotation.y += ROTATION_SPEED_Y;
+        solidMesh.rotation.x += ROTATION_SPEED_X;
+        wireframe.rotation.copy(solidMesh.rotation);
+
+        camera.position.x += (targetX - camera.position.x) * PARALLAX_DAMPING;
+        camera.position.y += (-targetY - camera.position.y) * PARALLAX_DAMPING;
+        camera.lookAt(scene.position);
+
+        renderer.render(scene, camera);
+      } catch (err) {
+        console.warn('Hero3D disabled:', err.message);
+        canvas.style.display = 'none';
+        return;
+      }
       requestAnimationFrame(animate);
-      solidMesh.rotation.y += 0.003;
-      solidMesh.rotation.x += 0.001;
-      wireframe.rotation.copy(solidMesh.rotation);
-
-      camera.position.x += (targetX - camera.position.x) * 0.03;
-      camera.position.y += (-targetY - camera.position.y) * 0.03;
-      camera.lookAt(scene.position);
-
-      renderer.render(scene, camera);
     }
     animate();
   } catch (err) {
