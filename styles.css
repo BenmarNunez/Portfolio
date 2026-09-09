@@ -17,6 +17,11 @@ html { scroll-behavior: smooth; overflow-x: hidden; }
 
 body { overflow-x: hidden; }
 
+/* Lenis smooth scroll -- minimal styles from its own dist/lenis.css,
+   inlined instead of a second external stylesheet request. */
+html.lenis, html.lenis body { height: auto; }
+.lenis.lenis-smooth iframe { pointer-events: none; }
+
 body {
   background: var(--bg);
   color: var(--text);
