@@ -37,17 +37,21 @@
       targetRadiusPx: 10,
     };
 
-    const EDGE_COPIES = 2;
+    // Layer/sample counts trimmed from the first pass: 12 simultaneous card
+    // instances proved too heavy while scrolling (each frame was building a
+    // 24-sample arc x 2 groups x up to 12 cards, plus compositing 3 blurred
+    // + blend-moded layers per group). Fewer samples and fewer glow layers
+    // are visually near-identical at this size but meaningfully cheaper.
+    const EDGE_COPIES = 1;
     const GLOW_LAYERS = [
-      { blur: 3, opacity: 0.5, reach: 0.3 },
-      { blur: 6, opacity: 0.3, reach: 0.6 },
-      { blur: 16, opacity: 0.18, reach: 1 },
+      { blur: 4, opacity: 0.4, reach: 0.4 },
+      { blur: 14, opacity: 0.2, reach: 1 },
     ];
-    const MAX_GLOW_BLUR = 16;
+    const MAX_GLOW_BLUR = 14;
     const MAX_GLOW_REACH = 14;
     const GLOW_OUTER = 6 + MAX_GLOW_REACH + MAX_GLOW_BLUR * 2;
 
-    const ARC_SAMPLES = 24;
+    const ARC_SAMPLES = 12;
     const MIN_ARC = 0.015;
 
     const SLOWEST_CYCLE = 30, FASTEST_CYCLE = 4, SLOWEST_STEP = 3, FASTEST_STEP = 0.35;
@@ -317,17 +321,35 @@
     });
 
     if (!prefersReducedMotion && instances.length) {
+      // The actual reported lag was specifically "while scrolling" -- Lenis
+      // is already doing per-frame work to smooth the scroll itself, and
+      // stacking this effect's arc math + DOM writes on top of that during
+      // the exact moment the user is scrolling is what caused the jank.
+      // Freezing the arcs (not the whole page, just this decorative bit)
+      // while a scroll is actively happening, and resuming a beat after it
+      // settles, removes that overlap entirely.
+      let scrolling = false;
+      let scrollTimer = null;
+      const onScroll = () => {
+        scrolling = true;
+        clearTimeout(scrollTimer);
+        scrollTimer = setTimeout(() => { scrolling = false; }, 140);
+      };
+      window.addEventListener('scroll', onScroll, { passive: true });
+
       let last = performance.now();
       let raf;
       function loop(now) {
         const dt = Math.min(0.05, Math.max(0, (now - last) / 1000));
         last = now;
-        try {
-          instances.forEach((inst) => inst.tick(dt));
-        } catch (err) {
-          console.warn('NeonBorder animation loop disabled:', err.message);
-          cancelAnimationFrame(raf);
-          return;
+        if (!scrolling) {
+          try {
+            instances.forEach((inst) => inst.tick(dt));
+          } catch (err) {
+            console.warn('NeonBorder animation loop disabled:', err.message);
+            cancelAnimationFrame(raf);
+            return;
+          }
         }
         raf = requestAnimationFrame(loop);
       }
