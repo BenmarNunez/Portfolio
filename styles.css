@@ -547,6 +547,97 @@ footer {
   margin-top: 1.5rem;
 }
 
+/* ---- Scan Grid Button ---- */
+
+.scan-btn {
+  position: relative;
+  overflow: hidden;
+}
+
+.scan-svg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 2;
+}
+
+.scan-bracket {
+  fill: none;
+  stroke: var(--scan-color, #fff);
+  stroke-width: 1.5;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  filter: drop-shadow(0 0 0 var(--scan-color, #fff));
+  transition: filter 0.25s ease;
+}
+
+.scan-btn.scan-active .scan-bracket {
+  filter: drop-shadow(0 0 4px var(--scan-color, #fff));
+}
+
+.scanline {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 65%;
+  display: block;
+  opacity: 0;
+  pointer-events: none;
+  z-index: 1;
+  transition: opacity 0.2s ease;
+}
+
+.scan-btn.scan-active .scanline {
+  opacity: 1;
+  animation: scan-sweep 2.2s linear infinite;
+}
+
+.scan-grad {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, transparent 0%, var(--scan-color, #fff) 100%);
+  opacity: 0.45;
+  display: block;
+}
+
+.scan-edge {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  height: 2px;
+  background: var(--scan-color, #fff);
+  box-shadow: 0 0 6px var(--scan-color, #fff);
+  display: block;
+}
+
+@keyframes scan-sweep {
+  from { transform: translateY(-100%); }
+  to { transform: translateY(153.8%); }
+}
+
+.scan-text {
+  position: relative;
+  z-index: 3;
+  display: inline-block;
+  white-space: pre-wrap;
+}
+
+.scan-btn .char { display: inline-block; }
+
+.scan-btn.scan-active .char {
+  animation: scan-glitch 0.32s ease-out backwards;
+  animation-delay: calc(var(--i, 0) * 30ms);
+}
+
+@keyframes scan-glitch {
+  0%, 100% { text-shadow: none; }
+  25%, 75% { text-shadow: 0 0 rgba(255,0,80,0.75), 0 0 rgba(0,220,255,0.75); }
+}
+
 /* ---- Reveal / motion ---- */
 
 .reveal {
